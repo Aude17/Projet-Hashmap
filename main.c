@@ -1,50 +1,121 @@
-#include "arbre.h"
-#include "Hashmap.h"
-#include "listechainee.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include <string.h>
+#include "linkedlist.h"
+#include "bst.h"
+#include "hashmap.h"
 
 int main() {
-    HashMap* map = createHashmap();
+    /** LinkedList */
+    LinkedList* linkedList = createLinkedList();
 
-    addHM(map, "antoine", 12);
-    addHM(map, "aude", 14);
-    addHM(map, "maman", 57);
-    addHM(map, "mathou", 89);
-    addHM(map, "guillaume", 102);
+    while (1) {
+        char key[100];   // Adjust the size as needed
+        int value;
 
-    printf("Hashmap debut\n");
-    display(map);
-    printf("\n");
+        printf("Enter a key (or 'exit' to quit) for LinkedList: ");
+        scanf("%s", key);
 
-    printf("Size Hashmap : %d\n", sizeHM(map));
-    printf("\n");
+        if (strcmp(key, "exit") == 0) {
+            break; // Exit the loop if the user enters 'exit'
+        }
 
-    int* res = getHM(map, "aude");
-    if (res != NULL) {
-        printf("Value of aude : %d\n", *res);
-    } else {
-        printf("The key 'aude' is not in the Hashmap\n");
+        printf("Enter a value: ");
+        scanf("%d", &value);
+
+        addNode(linkedList, key, value);
     }
-    printf("\n");
 
-    printf("Removing the key 'antoine' from the Hashmap\n");
-    removeHM(map, "antoine");
-    printf("\n");
+    printf("Size of the LinkedList: %d\n", sizeLinkedList(linkedList));
 
-    printf("Update the value for the key 'maman'\n");
-    updateHM(map, "maman", 1);
-    printf("\n");
+    /** Remove a key-value pair from LinkedList*/
+    char keyToRemoveLinkedList[100];
+    printf("Enter a key to remove from LinkedList: ");
+    scanf("%s", keyToRemoveLinkedList);
 
-    printf("Final state of the Hashmap\n");
-    display(map);
-    printf("\n");
+    removeNode(linkedList, keyToRemoveLinkedList);
 
-    printf("Size Hashmap : %d\n", sizeHM(map));
-    printf("\n");
-    freeHashMap(map);
+    /** Print the updated size of the LinkedList*/
+    printf("Size of the LinkedList after removal: %d\n", sizeLinkedList(linkedList));
+
+    /** Print the updated LinkedList*/
+    printLinkedList(linkedList);
+
+    freeLinkedList(linkedList);
+
+    /** Binary Search Tree (BST)*/
+    BinarySearchTree* bst = createBST();
+
+    while (1) {
+        char key[100];   
+        int value;
+
+        printf("Enter a key (or 'exit' to quit) for BST: ");
+        scanf("%s", key);
+
+        if (strcmp(key, "exit") == 0) {
+            break; /** Exit the loop if the user enters 'exit'*/
+        }
+
+        printf("Enter a value: ");
+        scanf("%d", &value);
+
+        insertBST(bst, key, value);
+    }
+
+    printf("Size of the BST: %d\n", sizeBST(bst));
+
+    /** Remove a key-value pair from BST*/
+    char keyToRemoveBST[100];
+    printf("Enter a key to remove from BST: ");
+    scanf("%s", keyToRemoveBST);
+
+    removeNodeBST(bst, keyToRemoveBST);
+
+    /** Print the updated size of the BST*/
+    printf("Size of the BST after removal: %d\n", sizeBST(bst));
+
+    /** Print the updated BST*/
+    printBST(bst);
+
+    freeBST(bst);
+
+    /** HashMap*/
+    HashMap* myMap = createHashMap(26); /** Adjust the size as needed*/
+
+    while (1) {
+        char key[100];   /** Adjust the size as needed*/
+        int value;
+
+        printf("Enter a key (or 'exit' to quit) for HashMap: ");
+        scanf("%s", key);
+
+        if (strcmp(key, "exit") == 0) {
+            break; /** Exit the loop if the user enters 'exit'*/
+        }
+
+        printf("Enter a value: ");
+        scanf("%d", &value);
+
+        addHashMap(myMap, key, value);
+    }
+
+    printf("Size of the HashMap: %d\n", sizeHashMap(myMap));
+
+    /** Remove a key-value pair from HashMap*/
+    char keyToRemoveHashMap[100];
+    printf("Enter a key to remove from HashMap: ");
+    scanf("%s", keyToRemoveHashMap);
+
+    removeKeyHashMap(myMap, keyToRemoveHashMap);
+
+    /** Print the updated size of the HashMap*/
+    printf("Size of the HashMap after removal: %d\n", sizeHashMap(myMap));
+
+    /** Print the updated HashMap*/
+    printHashMap(myMap);
+
+    freeHashMap(myMap);
 
     return 0;
 }
